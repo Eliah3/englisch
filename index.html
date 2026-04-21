@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Brexit — A Concept Map</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#141414;
+    --paper:#f3ede1;
+    --paper-deep:#e8dfcd;
+    --red:#b0121a;
+    --blue:#0a2a5e;
+    --gold:#b08a2e;
+    --rule:#1c1c1c;
+    --muted:#5b544a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--paper);color:var(--ink);font-family:'Fraunces',Georgia,serif;font-optical-sizing:auto}
+  body{
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(176,18,26,.04), transparent 40%),
+      radial-gradient(circle at 80% 90%, rgba(10,42,94,.05), transparent 45%),
+      repeating-linear-gradient(0deg, rgba(20,20,20,.012) 0 1px, transparent 1px 3px);
+    min-height:100vh;padding:40px 32px 80px;
+    line-height:1.4;
+  }
+  .wrap{max-width:1400px;margin:0 auto}
+
+  /* ───── HEADER ───── */
+  header{
+    border-top:6px double var(--rule);
+    border-bottom:1px solid var(--rule);
+    padding:28px 0 22px;margin-bottom:12px;
+    position:relative;
+  }
+  .meta{
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:18px;
+  }
+  .meta .dot{color:var(--red);margin:0 8px}
+  h1{
+    font-family:'Fraunces',serif;
+    font-weight:900;font-style:italic;
+    font-size:clamp(56px,9vw,128px);
+    line-height:.88;letter-spacing:-.04em;
+    color:var(--ink);
+  }
+  h1 .accent{color:var(--red);font-style:italic}
+  h1 .small{font-size:.4em;font-style:normal;font-weight:400;letter-spacing:-.01em;color:var(--muted);display:block;margin-top:14px;font-family:'Fraunces',serif}
+  .subhead{
+    display:grid;grid-template-columns:1fr auto 1fr;gap:24px;
+    margin-top:22px;padding-top:14px;border-top:1px solid var(--rule);
+    font-size:13.5px;color:var(--muted);
+  }
+  .subhead b{color:var(--ink);font-weight:600}
+  .subhead .center{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;letter-spacing:.3em;text-transform:uppercase;
+    align-self:center;
+  }
+
+  /* ───── CENTER NODE ───── */
+  .hub{
+    margin:56px auto 48px;text-align:center;position:relative;
+    max-width:640px;padding:40px 30px;
+    background:var(--paper);
+    border:2px solid var(--ink);
+    box-shadow:
+      8px 8px 0 var(--ink),
+      8px 8px 0 2px var(--red);
+  }
+  .hub::before{
+    content:"THE QUESTION";
+    position:absolute;top:-11px;left:50%;transform:translateX(-50%);
+    background:var(--paper);padding:0 14px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;letter-spacing:.3em;color:var(--red);
+  }
+  .hub q{
+    font-size:clamp(22px,3vw,30px);font-style:italic;font-weight:400;
+    line-height:1.25;quotes:'“' '”';color:var(--ink);
+  }
+  .hub q::before,.hub q::after{color:var(--red);font-weight:700}
+  .hub .caption{
+    margin-top:18px;font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+  }
+
+  /* ───── SECTION SCAFFOLD ───── */
+  section{margin:72px 0 0;position:relative}
+  .section-head{
+    display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:baseline;
+    border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:28px;
+  }
+  .chapter-num{
+    font-family:'JetBrains Mono',monospace;font-weight:700;
+    font-size:13px;letter-spacing:.25em;color:var(--red);
+  }
+  .chapter-title{
+    font-family:'Fraunces',serif;font-weight:700;font-style:italic;
+    font-size:clamp(32px,4vw,52px);letter-spacing:-.025em;line-height:1;
+  }
+  .chapter-kicker{
+    font-family:'JetBrains Mono',monospace;font-size:10px;
+    letter-spacing:.25em;text-transform:uppercase;color:var(--muted);
+    text-align:right;max-width:260px;line-height:1.6;
+  }
+
+  /* ───── GRID OF CARDS ───── */
+  .grid{display:grid;gap:18px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .g5{grid-template-columns:repeat(5,1fr)}
+  @media(max-width:1100px){.g4,.g5{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:1fr 1fr}}
+  @media(max-width:640px){.g3,.g4,.g5{grid-template-columns:1fr}}
+
+  .card{
+    background:var(--paper);border:1.5px solid var(--ink);
+    padding:20px 20px 22px;position:relative;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--ink)}
+  .card h3{
+    font-family:'Fraunces',serif;font-weight:700;font-style:italic;
+    font-size:22px;line-height:1.1;letter-spacing:-.01em;margin-bottom:10px;
+  }
+  .card p{font-size:14px;line-height:1.5;color:var(--ink)}
+  .card p + p{margin-top:8px}
+  .tag{
+    display:inline-block;font-family:'JetBrains Mono',monospace;
+    font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+    padding:3px 7px;margin-bottom:12px;border:1px solid var(--ink);
+  }
+  .tag.red{background:var(--red);color:var(--paper);border-color:var(--red)}
+  .tag.blue{background:var(--blue);color:var(--paper);border-color:var(--blue)}
+  .tag.gold{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+  .tag.ghost{background:transparent;color:var(--muted)}
+
+  /* ───── TIMELINE ───── */
+  .timeline{
+    position:relative;padding:8px 0 10px;
+  }
+  .timeline::before{
+    content:"";position:absolute;left:0;right:0;top:50%;
+    height:2px;background:var(--ink);transform:translateY(-50%);
+  }
+  .tl-grid{
+    display:grid;grid-template-columns:repeat(8,1fr);gap:10px;
+    position:relative;z-index:1;
+  }
+  .tl-node{
+    background:var(--paper);border:1.5px solid var(--ink);
+    padding:10px 10px 12px;min-height:140px;
+    display:flex;flex-direction:column;
+  }
+  .tl-node.top{align-self:start;margin-bottom:30px}
+  .tl-node.bot{align-self:end;margin-top:30px}
+  .tl-node .yr{
+    font-family:'JetBrains Mono',monospace;font-weight:700;
+    font-size:15px;color:var(--red);letter-spacing:.05em;
+    padding-bottom:6px;border-bottom:1px solid var(--ink);margin-bottom:8px;
+  }
+  .tl-node .ev{font-family:'Fraunces',serif;font-size:13px;line-height:1.35;font-style:italic}
+  @media(max-width:1100px){
+    .timeline::before{display:none}
+    .tl-grid{grid-template-columns:repeat(2,1fr)}
+    .tl-node.top,.tl-node.bot{align-self:auto;margin:0}
+  }
+
+  /* ───── CLAIMS TABLE ───── */
+  .claims{
+    border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);
+    margin-top:8px;
+  }
+  .claim{
+    display:grid;grid-template-columns:50px 1fr 1.3fr 100px;
+    gap:22px;padding:18px 4px;border-bottom:1px dashed rgba(20,20,20,.35);
+    align-items:start;
+  }
+  .claim:last-child{border-bottom:none}
+  .claim .n{
+    font-family:'Fraunces',serif;font-style:italic;font-weight:900;
+    font-size:44px;line-height:.9;color:var(--red);
+  }
+  .claim .topic{
+    font-family:'Fraunces',serif;font-style:italic;font-weight:700;font-size:18px;
+    line-height:1.2;
+  }
+  .claim .topic small{
+    display:block;font-family:'JetBrains Mono',monospace;
+    font-style:normal;font-weight:400;font-size:10px;letter-spacing:.15em;
+    color:var(--muted);margin-top:6px;text-transform:uppercase;
+  }
+  .claim .reality{font-size:13.5px;line-height:1.5}
+  .claim .reality em{background:rgba(176,18,26,.1);padding:0 3px;font-style:normal;font-weight:600;color:var(--red)}
+  .claim .verdict{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;
+    text-transform:uppercase;text-align:right;font-weight:700;
+  }
+  .v-broken{color:var(--red)}
+  .v-mixed{color:var(--gold)}
+  .v-partly{color:var(--blue)}
+  @media(max-width:760px){
+    .claim{grid-template-columns:40px 1fr;gap:14px}
+    .claim .reality,.claim .verdict{grid-column:1/-1;padding-left:54px}
+    .claim .verdict{text-align:left}
+  }
+
+  /* ───── BIG STATS ───── */
+  .stats{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:0;
+    border:2px solid var(--ink);
+  }
+  .stat{
+    padding:24px 18px;border-right:1.5px solid var(--ink);
+    background:var(--paper);
+  }
+  .stat:last-child{border-right:none}
+  .stat .num{
+    font-family:'Fraunces',serif;font-weight:900;font-style:italic;
+    font-size:46px;line-height:.9;letter-spacing:-.03em;color:var(--red);
+  }
+  .stat .label{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink);margin-top:12px;line-height:1.5;
+  }
+  .stat .src{
+    display:block;margin-top:10px;font-family:'JetBrains Mono',monospace;
+    font-size:9px;color:var(--muted);letter-spacing:.1em;
+  }
+  @media(max-width:1100px){.stats{grid-template-columns:repeat(2,1fr)}.stat{border-right:none;border-bottom:1.5px solid var(--ink)}.stat:nth-child(even){border-right:none}}
+  @media(max-width:520px){.stats{grid-template-columns:1fr}}
+
+  /* ───── VOICES (Quotes) ───── */
+  .voices{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  @media(max-width:800px){.voices{grid-template-columns:1fr}}
+  .voice{
+    padding:22px;border-left:4px solid var(--red);
+    background:linear-gradient(to right, rgba(176,18,26,.04), transparent 60%);
+  }
+  .voice blockquote{
+    font-family:'Fraunces',serif;font-style:italic;font-size:18px;
+    line-height:1.35;margin-bottom:12px;
+  }
+  .voice cite{
+    font-family:'JetBrains Mono',monospace;font-style:normal;
+    font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  }
+
+  /* ───── FOOTER ───── */
+  footer{
+    margin-top:80px;padding-top:24px;border-top:4px double var(--rule);
+    display:grid;grid-template-columns:1fr auto 1fr;gap:24px;
+    font-family:'JetBrains Mono',monospace;font-size:10px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+    align-items:center;
+  }
+  footer .center{text-align:center;color:var(--red);font-weight:700}
+  footer .right{text-align:right}
+
+  /* ───── CONNECTIVE VISUAL ORNAMENTS ───── */
+  .rule-double{
+    height:6px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+    margin:18px 0;
+  }
+
+  /* pre-load stagger */
+  .card,.tl-node,.stat,.claim,.voice{opacity:0;transform:translateY(8px);animation:rise .7s forwards}
+  .card:nth-child(1),.tl-node:nth-child(1),.stat:nth-child(1){animation-delay:.05s}
+  .card:nth-child(2),.tl-node:nth-child(2),.stat:nth-child(2){animation-delay:.1s}
+  .card:nth-child(3),.tl-node:nth-child(3),.stat:nth-child(3){animation-delay:.15s}
+  .card:nth-child(4),.tl-node:nth-child(4),.stat:nth-child(4){animation-delay:.2s}
+  .card:nth-child(5),.tl-node:nth-child(5),.stat:nth-child(5){animation-delay:.25s}
+  .card:nth-child(6),.tl-node:nth-child(6){animation-delay:.3s}
+  .tl-node:nth-child(7){animation-delay:.35s}
+  .tl-node:nth-child(8){animation-delay:.4s}
+  @keyframes rise{to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ═══════ HEADER ═══════ -->
+  <header>
+    <div class="meta">
+      <span>Dossier <span class="dot">●</span> Concept Map</span>
+      <span>Eliah <span class="dot">●</span> English Abitur</span>
+      <span>File N°01 <span class="dot">●</span> 2026</span>
+    </div>
+    <h1>
+      Brex<span class="accent">it</span>.
+      <span class="small">Causes · Developments · Consequences — a concept map, nine years on.</span>
+    </h1>
+    <div class="subhead">
+      <div><b>Scope.</b> The 2016 referendum, the years in between, and the economic &amp; political reality of 2025.</div>
+      <div class="center">— ※ —</div>
+      <div style="text-align:right"><b>Verdict, in short.</b> Most of the promises did not survive contact with reality.</div>
+    </div>
+  </header>
+
+  <!-- ═══════ CENTRAL QUESTION ═══════ -->
+  <div class="hub">
+    <q>Did the Brexit the Leave camp promised in 2016 ever actually arrive?</q>
+    <div class="caption">— the spine of this map —</div>
+  </div>
+
+  <!-- ═══════ 01 · CAUSES ═══════ -->
+  <section>
+    <div class="section-head">
+      <div class="chapter-num">01 / CAUSES</div>
+      <div class="chapter-title">Why Britain voted <span style="color:var(--red)">Leave</span>.</div>
+      <div class="chapter-kicker">Sovereignty, immigration, elite distrust — and a referendum Cameron never expected to lose.</div>
+    </div>
+
+    <div class="grid g4">
+      <div class="card">
+        <span class="tag red">Political</span>
+        <h3>Sovereignty.</h3>
+        <p>The slogan <em>“Take Back Control”</em> captured a decades-long Euroscepticism. Parliament — not Brussels — should make British laws.</p>
+      </div>
+      <div class="card">
+        <span class="tag blue">Demographic</span>
+        <h3>Immigration.</h3>
+        <p>Free movement after 2004 EU enlargement was felt unevenly. Priti Patel and UKIP turned migration into the campaign’s emotional core.</p>
+      </div>
+      <div class="card">
+        <span class="tag gold">Economic</span>
+        <h3>Deindustrial North.</h3>
+        <p>Left-behind regions (Grimsby, the Midlands, Northeast) blamed globalisation and the EU for the loss of fishing, manufacturing and wages.</p>
+      </div>
+      <div class="card">
+        <span class="tag ghost">Tactical</span>
+        <h3>Cameron’s Gamble.</h3>
+        <p>A referendum promised in 2013 to pacify Tory backbenchers and contain UKIP. <em>72% turnout · 52% for Leave</em>. He resigned the next morning.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ 02 · DEVELOPMENTS TIMELINE ═══════ -->
+  <section>
+    <div class="section-head">
+      <div class="chapter-num">02 / DEVELOPMENTS</div>
+      <div class="chapter-title">Nine years, four Prime Ministers.</div>
+      <div class="chapter-kicker">From vote to deal to aftermath — the process that Dominic Raab said could take ten years.</div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-grid">
+        <div class="tl-node top"><div class="yr">2016</div><div class="ev">Referendum: 52 % vote Leave. Cameron resigns. May becomes PM.</div></div>
+        <div class="tl-node bot"><div class="yr">2017</div><div class="ev">Article 50 triggered. General election costs May her majority.</div></div>
+        <div class="tl-node top"><div class="yr">2018</div><div class="ev">First no-confidence vote against Theresa May in December.</div></div>
+        <div class="tl-node bot"><div class="yr">2019</div><div class="ev">May resigns “with no ill will”. Johnson wins 80-seat landslide on <em>“Get Brexit Done.”</em></div></div>
+        <div class="tl-node top"><div class="yr">2020</div><div class="ev">UK formally leaves the EU on 31 Jan. 1,246-page Trade &amp; Cooperation Agreement signed on Boxing Day.</div></div>
+        <div class="tl-node bot"><div class="yr">2021</div><div class="ev">Transition period ends. Customs controls, paperwork, Schengen 90-day rule begin to bite.</div></div>
+        <div class="tl-node top"><div class="yr">2023</div><div class="ev">Sunak’s Windsor Framework — “green” and “red” lanes for Northern Ireland goods.</div></div>
+        <div class="tl-node bot"><div class="yr">2025</div><div class="ev">Five years since the deal. 61 % of Britons call Brexit a failure. Starmer promises TCA renegotiation.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ 03 · THE TEN PROMISES ═══════ -->
+  <section>
+    <div class="section-head">
+      <div class="chapter-num">03 / THE TEN PROMISES</div>
+      <div class="chapter-title">Promise vs. reality.</div>
+      <div class="chapter-kicker">What the Leave campaign said in 2016 — and what actually happened by 2025.</div>
+    </div>
+
+    <div class="claims">
+
+      <div class="claim">
+        <div class="n">01</div>
+        <div class="topic">Economy<small>Osborne (Remain): expect a recession</small></div>
+        <div class="reality">No <em>immediate</em> crash — but Brexit has caused a <em>6 % hit</em> to UK GDP (CER doppelganger study), up to 6–8 % by NBER. £140 bn in lost output, £3,400 per Londoner.</div>
+        <div class="verdict v-mixed">Partly true<br>— worse long-term</div>
+      </div>
+
+      <div class="claim">
+        <div class="n">02</div>
+        <div class="topic">Negotiations<small>Raab: 5–10 years to settle a trade deal</small></div>
+        <div class="reality">The TCA was signed in December 2020 — but <em>disputes on fish, Northern Ireland and financial services dragged on for years</em>. His worst-case estimate was optimistic about scope, not speed.</div>
+        <div class="verdict v-mixed">Half-fulfilled</div>
+      </div>
+
+      <div class="claim">
+        <div class="n">03</div>
+        <div class="topic">EU Trade Relationship<small>Cameron: return to bureaucracy</small></div>
+        <div class="reality">Exactly what happened. <em>Two-thirds of UK exporters</em> say trading with the EU is harder. £330 m in new food-import checks. A bottle of French wine costs ~£3.50 more.</div>
+        <div class="verdict v-broken">Broken<br>— remainers were right</div>
+      </div>
+
+      <div class="claim">
+        <div class="n">04</div>
+        <div class="topic">Fisheries<small>Leave: take back control of our waters</small></div>
+        <div class="reality">Grimsby fishmongers say they <em>wish Brexit had never happened</em>. Icelandic fish now bypasses the UK entirely and goes straight to Boulogne. Red tape &gt; reclaimed waters.</div>
+        <div class="verdict v-broken">Broken</div>
+      </div>
+
+      <div class="claim">
+        <div class="n">05</div>
+        <div class="topic">Security<small>May (Remain): safer inside the EU</small></div>
+        <div class="reality">UK lost automatic access to tools like SIS II and the European Arrest Warrant. Cooperation continues, but <em>more slowly and more expensively</em>. May’s warning held up.</div>
+        <div class="verdict v-mixed">Partly confirmed</div>
+      </div>
+
+      <div class="claim">
+        <div class="n">06</div>
+        <div class="topic">Northern Ireland<small>Johnson: the border will be “absolutely unchanged”</small></div>
+        <div class="reality">Instead, a <em>de facto border in the Irish Sea</em>. Protocol → Windsor Framework → DUP boycott of Stormont → risk of “trivergence”. One of the deepest Brexit wounds.</div>
+        <div class="verdict v-broken">Broken</div>
+      </div>
+
+      <div class="claim">
+        <div class="n">07</div>
+        <div class="topic">Regulation<small>Raab: cut unnecessary red tape</small></div>
+        <div class="reality">Bonfire of EU laws was quietly dropped. <em>Paperwork has grown, not shrunk</em> — new customs forms, SPS checks, product certifications. Deregulation turned into re-regulation.</div>
+        <div class="verdict v-broken">Broken</div>
+      </div>
+
+      <div class="claim">
+        <div class="n">08</div>
+        <div class="topic">Immigration<small>Patel: take back control of our borders</small></div>
+        <div class="reality">Net migration <em>2022: 745,000</em> — more than triple the 2019 Tory target. EU citizens refused entry rose five-fold, but total numbers hit record highs. “Control” ≠ lower.</div>
+        <div class="verdict v-broken">Broken<br>— opposite outcome</div>
+      </div>
+
+      <div class="claim">
+        <div class="n">09</div>
+        <div class="topic">Global Trade Deals<small>Leave: the world will queue up</small></div>
+        <div class="reality">Australia deal = <em>+0.08 % GDP</em>. India stalled. US shelved. Canada collapsed. ~70 agreements signed but mostly <em>rollovers</em> of existing EU terms.</div>
+        <div class="verdict v-broken">Broken</div>
+      </div>
+
+      <div class="claim">
+        <div class="n">10</div>
+        <div class="topic">The Union<small>Gove: the UK will be stronger</small></div>
+        <div class="reality">Scotland voted Remain by 62 % and has no Brexit mandate. Northern Ireland politically <em>deadlocked</em>. The union is arguably <em>weaker</em>, not stronger.</div>
+        <div class="verdict v-broken">Broken</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════ 04 · STATS ═══════ -->
+  <section>
+    <div class="section-head">
+      <div class="chapter-num">04 / CONSEQUENCES</div>
+      <div class="chapter-title">Brexit, by the numbers.</div>
+      <div class="chapter-kicker">Figures from the Evening Standard, Cambridge Econometrics, OBR, CER and Tagesschau.</div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="num">£140bn</div><div class="label">Lost economic output since Brexit came into force</div><span class="src">Cambridge Econometrics</span></div>
+      <div class="stat"><div class="num">−6%</div><div class="label">UK GDP vs. a non-Brexit doppelganger economy</div><span class="src">CER, 2024</span></div>
+      <div class="stat"><div class="num">745k</div><div class="label">Net migrants in 2022 — a record, against the Brexit promise</div><span class="src">ONS / Tagesschau</span></div>
+      <div class="stat"><div class="num">2⁄3</div><div class="label">UK exporters who say trading with the EU is now harder</div><span class="src">British Chambers of Commerce</span></div>
+      <div class="stat"><div class="num">61%</div><div class="label">Britons who now see Brexit as a failure (2025)</div><span class="src">YouGov</span></div>
+    </div>
+  </section>
+
+  <!-- ═══════ 05 · VOICES ═══════ -->
+  <section>
+    <div class="section-head">
+      <div class="chapter-num">05 / VOICES</div>
+      <div class="chapter-title">On the ground.</div>
+      <div class="chapter-kicker">Two voices that summarise the gap between 2016 and today.</div>
+    </div>
+
+    <div class="voices">
+      <div class="voice">
+        <blockquote>“I wish Brexit never happened. I just want to go back to a time when I was copying and pasting emails, and two days later the fish turned up.”</blockquote>
+        <cite>Nathan Goldley · Fishmonger, Grimsby · AFP, 2023</cite>
+      </div>
+      <div class="voice">
+        <blockquote>“It’s like a small hole in a tyre — the economy is slowly losing air.”</blockquote>
+        <cite>Thomas Sampson · LSE economist · Tagesschau, 2024</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ 06 · OUTLOOK ═══════ -->
+  <section>
+    <div class="section-head">
+      <div class="chapter-num">06 / OUTLOOK</div>
+      <div class="chapter-title">What happens next?</div>
+      <div class="chapter-kicker">Rejoin is off the table — but closer alignment is quietly gaining ground.</div>
+    </div>
+
+    <div class="grid g3">
+      <div class="card">
+        <span class="tag blue">Public Opinion</span>
+        <h3>A shifting mood.</h3>
+        <p>YouGov: <em>51 %</em> of Britons now favour rejoining the EU; <em>42 %</em> would back the Single Market. Only <em>31 %</em> want the status quo.</p>
+      </div>
+      <div class="card">
+        <span class="tag gold">Politics</span>
+        <h3>Starmer’s thin line.</h3>
+        <p>Labour promises a TCA <em>renegotiation in 2025</em> — but rules out Single Market or full membership. Brexit is <em>“the dog that won’t bark.”</em></p>
+      </div>
+      <div class="card">
+        <span class="tag red">Economy</span>
+        <h3>Piecemeal repairs.</h3>
+        <p>Historian David Reynolds: the EU is still the UK’s biggest trading partner, so Britain will have to <em>keep patching the relationship</em>, not rebuild it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <footer>
+    <div>Sources · AFP · Evening Standard · TLDR · Tagesschau · The Week UK · OBR · CER · YouGov</div>
+    <div class="center">— end of map —</div>
+    <div class="right">Eliah · Abitur English · Brexit Dossier 2026</div>
+  </footer>
+
+</div>
+</body>
+</html>
